@@ -5,14 +5,17 @@ import { AiOutlineMenu } from "react-icons/ai";
 
 import Avatar from "@/components/Navbar/components/Avatar";
 import { useToggle } from "@/hooks/useToggle";
+import { useToggle } from "@/hooks/useToggle";
 import MenuItems from "@/components/Navbar/components/Menu/MenuItems";
 import useRegisterModal from "@/hooks/useRegisterModal";
+import useLoginModal from "@/hooks/useLoginModal";
 
 interface MenuProps {}
 
 const Menu: FC<MenuProps> = ({}) => {
   const [isOpen, toggle] = useToggle(false);
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
 
   return (
     <div className="relative flex flex-row items-center gap-3">
@@ -31,7 +34,7 @@ const Menu: FC<MenuProps> = ({}) => {
         className="absolute top-16 right-0 w-44 bg-white shadow-lg rounded-md overflow-hidden cursor-pointer"
         style={{ display: isOpen ? "block" : "none" }}>
         <div className="">
-          <MenuItems label="Login" handleClick={() => {}} />
+          <MenuItems label="Login" handleClick={loginModal.onOpen} />
           <MenuItems label="Sign up" handleClick={registerModal.onOpen} />
         </div>
       </div>
