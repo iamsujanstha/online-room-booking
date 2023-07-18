@@ -19,7 +19,6 @@ const Button: FC<ButtonProps> = ({
   small,
   icon: Icon,
 }) => {
-    console.log(Icon)
   return (
     <button
       onClick={onClick}
@@ -32,7 +31,7 @@ const Button: FC<ButtonProps> = ({
           ? "py-1 text-sm font-light border-[1px]"
           : "py-3 text-md font-semibold border-[2px]"
       )}>
-          {Icon && <span className="absolute left-4 ">{ Icon }</span>}
+      {Icon && <span className="absolute left-4 ">{Icon}</span>}
       {label}
     </button>
   );

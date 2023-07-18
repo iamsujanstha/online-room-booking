@@ -26,7 +26,6 @@ const LoginModal: FC<LoginModalProps> = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-    console.log(loginModal.isOpen)
   const {
     register,
     handleSubmit,
@@ -40,21 +39,37 @@ const LoginModal: FC<LoginModalProps> = ({}) => {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
-    try {
-      const response = await signIn("credentials", {
-        ...data,
-        retdirect: false,
-      });
-      loginModal.onClose();
-      if (response?.ok) {
-        toast.success("Login successfully");
-        // router.refresh();
+    //   try {
+    //     const response = await signIn("credentials", {
+    //       ...data,
+    //       retdirect: false,
+    //     });
+    //     loginModal.onClose();
+    //     if (response?.ok) {
+    //       toast.success("Login successfully");
+    //     }
+    //     setIsLoading(false);
+    //     if (!response?.ok) toast.error(response?.error as string);
+    //   } catch (error) {
+    //     toast.error("Something went wrong");
+    //   }
+    // };
+    signIn("credentials", {
+      ...data,
+      redirect: false,
+    }).then((callback) => {
+      setIsLoading(false);
+
+      if (callback?.ok) {
+        toast.success("Logged in successfully!");
+        router.refresh();
+        loginModal.onClose();
       }
-        setIsLoading(false);
-        if(!response?.ok) toast.error(response?.error as string);
-    } catch (error) {
-      toast.error('Something went wrong');
-    }
+
+      if (callback?.error) {
+        toast.error(callback.error);
+      }
+    });
   };
   const bodyContent = (
     <div className="flex flex-col gap-4">
